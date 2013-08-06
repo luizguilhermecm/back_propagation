@@ -2,6 +2,7 @@
 #define NEURONIO_H
 
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -16,6 +17,12 @@ class Neuronio {
                 float GetPesoB();
                 void SetPesoB(float);
 
+                float GetSomaPonderada();
+                void SetSomaPonderada(float);
+
+                float GetSigmoide();
+                void SetSigmoide(float);
+
                 void SetA(Neuronio*);
                 Neuronio * GetA();
 
@@ -26,7 +33,12 @@ class Neuronio {
         private:
                 float pesoA;
                 float pesoB;
+
+                float soma_ponderada;
+                float sigmoide;
+
                 float limiar;
+
                 Neuronio * a;
                 Neuronio * b;
 };
