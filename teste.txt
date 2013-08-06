@@ -1,0 +1,74 @@
+----------------
+Pesos
+mid_1_A => 0.3
+mid_1_B => 0.6
+mid_2_A => 0.6
+mid_2_B => -0.7
+out_A   => 1
+out_B   => 0.1
+----------------
+0.503871
+-------------------
+Pesos Atualizados em OUT
+peso Ak => 0.954506
+peso Bk => 0.909011
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.3
+peso Bk => 0.3
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.6
+peso Bk => 0.6
+0.383295
+-------------------
+Pesos Atualizados em OUT
+peso Ak => 0.915771
+peso Bk => 0.877036
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.3
+peso Bk => 0.3
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.6
+peso Bk => 0.6
+0.392023
+-------------------
+Pesos Atualizados em OUT
+peso Ak => 0.875826
+peso Bk => 0.83588
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.3
+peso Bk => 0.3
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.6
+peso Bk => 0.6
+0.402226
+-------------------
+Pesos Atualizados em OUT
+peso Ak => 0.83448
+peso Bk => 0.793134
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.3
+peso Bk => 0.3
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.6
+peso Bk => 0.6
+0.412896
+-------------------
+Pesos Atualizados em OUT
+peso Ak => 0.791689
+peso Bk => 0.748898
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.3
+peso Bk => 0.3
+-------------------
+Pesos Atualizados em MID
+peso Ak => 0.6
+peso Bk => 0.6

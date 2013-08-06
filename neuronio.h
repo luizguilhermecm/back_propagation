@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 class Neuronio {
         public:
                 void SetLimiar(float);
@@ -23,8 +24,8 @@ class Neuronio {
                 float GetSigmoide();
                 void SetSigmoide(float);
 
-                float GetDeltaY();
-                void SetDeltaY(float);
+                float GetDeltaJ();
+                void SetDeltaJ(float, float);
 
                 void SetA(Neuronio*);
                 Neuronio * GetA();
@@ -33,6 +34,9 @@ class Neuronio {
                 Neuronio * GetB();
 
                 float GetResult();
+
+                float AtualizaPesosK(float, float);
+                float AtualizaPesosJ(float);
         private:
                 float pesoA;
                 float pesoB;
@@ -40,7 +44,7 @@ class Neuronio {
                 float soma_ponderada;
                 float sigmoide;
 
-                float delta_y;
+                float delta_j;
 
                 float limiar;
 

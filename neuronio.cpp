@@ -13,14 +13,14 @@ float Neuronio::GetLimiar()
         return limiar;
 }
 
-void Neuronio::SetDeltaY(float pDeltaY)
+void Neuronio::SetDeltaJ(float pY, float pDeltaK)
 {
-        delta_y = pDeltaY;
+        delta_j = pY * (1 - pY) * this->GetPesoA() * this->GetPesoB() * pDeltaK;
 }
 
-float Neuronio::GetDeltaY()
+float Neuronio::GetDeltaJ()
 {
-        return delta_y;
+        return delta_j;
 }
 
 void Neuronio::SetSomaPonderada(float pSomaPonderada)
@@ -92,10 +92,10 @@ float Neuronio::GetResult()
 
                 this->SetSomaPonderada(result - this->GetLimiar());
 
-                cout << "soma ponderada: " << this->GetSomaPonderada() << endl;
+         //       cout << "soma ponderada: " << this->GetSomaPonderada() << endl;
 
                 float sig = (1 / (1 + exp(this->GetSomaPonderada())));
-                cout << "sigmoide: " << sig << endl;
+        //        cout << "sigmoide: " << sig << endl;
 
                 SetSigmoide(sig);
 
@@ -104,4 +104,28 @@ float Neuronio::GetResult()
         else {
                 return this->pesoA; 
         }
+}
+
+float Neuronio::AtualizaPesosK(float pDeltaK, float pAlpha)
+{
+        this->SetPesoA(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * pDeltaK);
+        this->SetPesoB(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * pDeltaK);
+        cout << "-------------------" << endl;
+        cout << "Pesos Atualizados em OUT" << endl;
+        cout << "peso Ak => " << GetPesoA() << endl;
+        cout << "peso Bk => " << GetPesoB() << endl;
+
+        this->GetA()->AtualizaPesosJ(pAlpha);
+        this->GetB()->AtualizaPesosJ(pAlpha);
+}
+
+float Neuronio::AtualizaPesosJ(float pAlpha)
+{
+        this->SetPesoA(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * this->GetDeltaJ());
+        this->SetPesoB(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * this->GetDeltaJ());
+        cout << "-------------------" << endl;
+        cout << "Pesos Atualizados em MID" << endl;
+        cout << "peso Ak => " << GetPesoA() << endl;
+        cout << "peso Bk => " << GetPesoB() << endl;
+
 }

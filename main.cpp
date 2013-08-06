@@ -4,9 +4,11 @@
 
 using namespace std;
 
+float alpha = 0.9;
 float erro = 0;
-float alpha = 0.5;
+int esperado = 0;
 
+/* pY é o resultado obtido */
 float DeltaK (float pY, float perro)
 {
         float delta_k = pY * (1 - pY) * perro;
@@ -61,11 +63,39 @@ int main (int argc, char * argv[])
         out->SetPesoB((float)(rand()%20)/10-1);
 //        out->SetPesoB(-2);
 
-        float result = out->GetResult();
-        cout << result << endl;
+        cout << "----------------" << endl;
+        cout << "Pesos" << endl;
+        cout << "mid_1_A => " << mid_1->GetPesoA() << endl;
+        cout << "mid_1_B => " << mid_1->GetPesoB() << endl;
+        cout << "mid_2_A => " << mid_2->GetPesoA() << endl;
+        cout << "mid_2_B => " << mid_2->GetPesoB() << endl;
+        cout << "out_A   => " << out->GetPesoA() << endl;
+        cout << "out_B   => " << out->GetPesoB() << endl;
+        cout << "----------------" << endl;
+        for (int i = 1; i < 40; i++){
+                if (i%4 +1 == 1){
+                        x1->SetPesoA(0);
+                        x2->SetPesoA(0);
+                        esperado = 0;
+                } else if (i%4 +1 == 2){
+                        x1->SetPesoA(0);
+                        x2->SetPesoA(1);
+                        esperado = 1;
+                } else if (i%4 +1 == 3){
+                        x1->SetPesoA(1);
+                        x2->SetPesoA(0);
+                        esperado = 1;
+                } else if (i%4 +1 == 1){
+                        x1->SetPesoA(1);
+                        x2->SetPesoA(1);
+                        esperado = 0;
+                }
 
-        erro = atof(argv[3]) - result;
+                float result = out->GetResult();
+                cout << result << endl;
+                erro = esperado - result;
 
-        cout << erro << endl;
+                out->AtualizaPesosK(DeltaK(result, erro), alpha);
+        }
         return 0;
 }
