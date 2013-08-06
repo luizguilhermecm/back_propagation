@@ -2,6 +2,8 @@
 #include "neuronio.h"
 #include <time.h>
 
+#include <cstdlib>
+
 using namespace std;
 
 float alpha = 0.9;
@@ -21,12 +23,12 @@ int main (int argc, char * argv[])
         /* cinco neuronios */
         /* neuronio de entrada x1 */
         Neuronio * x1 = new Neuronio();
-        x1->SetPesoA(atof(argv[1]));
+        //x1->SetPesoA(atof(argv[1]));
         x1->SetLimiar(0);
 
         /* neuronio de entrada x2 */
         Neuronio * x2 = new Neuronio();;
-        x2->SetPesoA(atof(argv[2]));
+        //x2->SetPesoA(atof(argv[2]));
         x2->SetLimiar(0);
 
         /* limiar e peso do mid_1 */
@@ -72,30 +74,55 @@ int main (int argc, char * argv[])
         cout << "out_A   => " << out->GetPesoA() << endl;
         cout << "out_B   => " << out->GetPesoB() << endl;
         cout << "----------------" << endl;
-        for (int i = 1; i < 40; i++){
-                if (i%4 +1 == 1){
+
+        /* ==================================================
+        * TREINAMENTO
+        *  ==================================================
+        */ 
+
+        //for (int i = 1; i < 40; i++){
+                //if (i%4 +1 == 1){
                         x1->SetPesoA(0);
                         x2->SetPesoA(0);
                         esperado = 0;
-                } else if (i%4 +1 == 2){
+                //} else if (i%4 +1 == 2){
                         x1->SetPesoA(0);
                         x2->SetPesoA(1);
                         esperado = 1;
-                } else if (i%4 +1 == 3){
+                //} else if (i%4 +1 == 3){
                         x1->SetPesoA(1);
                         x2->SetPesoA(0);
                         esperado = 1;
-                } else if (i%4 +1 == 1){
+                //} else if (i%4 +1 == 1){
                         x1->SetPesoA(1);
                         x2->SetPesoA(1);
                         esperado = 0;
-                }
+                //}
 
                 float result = out->GetResult();
                 cout << result << endl;
                 erro = esperado - result;
 
                 out->AtualizaPesosK(DeltaK(result, erro), alpha);
-        }
+        //}
+
+        do{
+
+                cout << "----------------" << endl;
+                int op1, op2;
+                cout << "Op1: ";
+                cin >> op1;
+                cout << "Op2: ";
+                cin >> op2;
+
+                x1->SetPesoA(op1);
+                x2->SetPesoA(op2);
+
+                cout << endl;
+                cout << endl << op1 << " xor " << op2 << " = " << out->GetResult() << endl;
+                cout << "----------------" << endl;
+        }while(1);
+
+
         return 0;
 }
