@@ -4,6 +4,15 @@
 
 using namespace std;
 
+float erro = 0;
+float alpha = 0.5;
+
+float DeltaK (float pY, float perro)
+{
+        float delta_k = pY * (1 - pY) * perro;
+        return delta_k;
+}
+
 int main (int argc, char * argv[])
 {
         srand(time(NULL));
@@ -24,8 +33,8 @@ int main (int argc, char * argv[])
         mid_1->SetLimiar(0.5);
         mid_1->SetPesoA((float)(rand()%20)/10-1);
         mid_1->SetPesoB((float)(rand()%20)/10-1);
-        mid_1->SetPesoA(1);
-        mid_1->SetPesoB(1);
+//        mid_1->SetPesoA(1);
+//        mid_1->SetPesoB(1);
         mid_1->SetA(x1);
         mid_1->SetB(x2);
 
@@ -35,8 +44,8 @@ int main (int argc, char * argv[])
         mid_2->SetLimiar(1.5);
         mid_2->SetPesoA((float)(rand()%20)/10-1);
         mid_2->SetPesoB((float)(rand()%20)/10-1);
-        mid_2->SetPesoA(1);
-        mid_2->SetPesoB(1);
+//        mid_2->SetPesoA(1);
+//        mid_2->SetPesoB(1);
         mid_2->SetA(x1);
         mid_2->SetB(x2);
 
@@ -50,8 +59,13 @@ int main (int argc, char * argv[])
 
         out->SetB(mid_2);
         out->SetPesoB((float)(rand()%20)/10-1);
-        out->SetPesoB(-2);
-        cout << out->GetResult() << endl;
+//        out->SetPesoB(-2);
 
+        float result = out->GetResult();
+        cout << result << endl;
+
+        erro = atof(argv[3]) - result;
+
+        cout << erro << endl;
         return 0;
 }

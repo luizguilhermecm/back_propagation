@@ -23,6 +23,9 @@ class Neuronio {
                 float GetSigmoide();
                 void SetSigmoide(float);
 
+                float GetDeltaY();
+                void SetDeltaY(float);
+
                 void SetA(Neuronio*);
                 Neuronio * GetA();
 
@@ -36,6 +39,8 @@ class Neuronio {
 
                 float soma_ponderada;
                 float sigmoide;
+
+                float delta_y;
 
                 float limiar;
 

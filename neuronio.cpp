@@ -13,6 +13,16 @@ float Neuronio::GetLimiar()
         return limiar;
 }
 
+void Neuronio::SetDeltaY(float pDeltaY)
+{
+        delta_y = pDeltaY;
+}
+
+float Neuronio::GetDeltaY()
+{
+        return delta_y;
+}
+
 void Neuronio::SetSomaPonderada(float pSomaPonderada)
 {
         soma_ponderada = pSomaPonderada;
@@ -79,23 +89,19 @@ float Neuronio::GetResult()
         if (this->a){
                 float result = this->GetA()->GetResult() * this->GetPesoA() 
                         + this->GetB()->GetResult() * this->GetPesoB();
+
                 this->SetSomaPonderada(result - this->GetLimiar());
 
                 cout << "soma ponderada: " << this->GetSomaPonderada() << endl;
 
                 float sig = (1 / (1 + exp(this->GetSomaPonderada())));
                 cout << "sigmoide: " << sig << endl;
+
                 SetSigmoide(sig);
 
-                if (result >= this->GetLimiar())
-                        return 1;
-                else 
-                        return 0;
+                return GetSigmoide();
         }
         else {
                 return this->pesoA; 
         }
-
-
-
 }
