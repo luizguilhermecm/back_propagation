@@ -1,6 +1,10 @@
 #ifndef NEURONIO_H
 #define NEURONIO_H
 
+#include <iostream>
+
+using namespace std;
+
 class Neuronio {
         public:
                 void SetLimiar(float);

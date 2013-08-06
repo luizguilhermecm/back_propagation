@@ -56,6 +56,7 @@ float Neuronio::GetResult()
         if (this->a){
                 float result = this->GetA()->GetResult() * this->GetPesoA() 
                         + this->GetB()->GetResult() * this->GetPesoB();
+                cout << "soma ponderada: " << result << endl;
                 if (result >= this->GetLimiar())
                         return 1;
                 else 
