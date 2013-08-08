@@ -3,62 +3,64 @@
 
 using namespace std;
 
-void Neuronio::SetLimiar(float pLimiar)
+Neuronio::Neuronio(){
+    a = NULL;
+    b = NULL;
+}
+
+void Neuronio::SetLimiar(double pLimiar)
 {
         limiar = pLimiar;
 }
 
-float Neuronio::GetLimiar()
+double Neuronio::GetLimiar()
 {
         return limiar;
 }
 
-void Neuronio::SetDeltaJ(float pY, float pDeltaK)
+
+double Neuronio::GetDeltaJ(double pY, double pDeltaK)
 {
-        delta_j = pY * (1 - pY) * this->GetPesoA() * this->GetPesoB() * pDeltaK;
+        //delta_j = pY * (1 - pY) * this->GetPesoA() * this->GetPesoB() * pDeltaK;
+        return (pY * (1 - pY) * pDeltaK * ( this->GetPesoA() + this->GetPesoB() )  );
 }
 
-float Neuronio::GetDeltaJ()
-{
-        return delta_j;
-}
-
-void Neuronio::SetSomaPonderada(float pSomaPonderada)
+void Neuronio::SetSomaPonderada(double pSomaPonderada)
 {
         soma_ponderada = pSomaPonderada;
 }
 
-float Neuronio::GetSomaPonderada()
+double Neuronio::GetSomaPonderada()
 {
         return soma_ponderada;
 }
 
-void Neuronio::SetSigmoide(float pSigmoide)
+void Neuronio::SetSigmoide(double pSigmoide)
 {
         sigmoide = pSigmoide;
 }
 
-float Neuronio::GetSigmoide()
+double Neuronio::GetSigmoide()
 {
         return sigmoide;
 }
 
-void Neuronio::SetPesoA(float pPesoA)
+void Neuronio::SetPesoA(double pPesoA)
 {
         pesoA = pPesoA;
 }
 
-float Neuronio::GetPesoA()
+double Neuronio::GetPesoA()
 {
         return pesoA;
 }
 
-void Neuronio::SetPesoB(float pPesoB)
+void Neuronio::SetPesoB(double pPesoB)
 {
         pesoB = pPesoB;
 }
 
-float Neuronio::GetPesoB()
+double Neuronio::GetPesoB()
 {
         return pesoB;
 }
@@ -84,48 +86,65 @@ Neuronio * Neuronio::GetB()
         return b;
 }
 
-float Neuronio::GetResult()
+double Neuronio::GetResult()
 {
         if (this->a){
-                float result = this->GetA()->GetResult() * this->GetPesoA() 
+                double result = this->GetA()->GetResult() * this->GetPesoA() 
                         + this->GetB()->GetResult() * this->GetPesoB();
 
-                this->SetSomaPonderada(result - this->GetLimiar());
+                this->SetSomaPonderada(result - limiar);
+                //cout << "soma ponderada: " << this->GetSomaPonderada() << endl;
 
-         //       cout << "soma ponderada: " << this->GetSomaPonderada() << endl;
-
-                float sig = (1 / (1 + exp(this->GetSomaPonderada())));
-        //        cout << "sigmoide: " << sig << endl;
+                double sig = (1 / (1 + exp( (-1)*soma_ponderada) ));
+                //cout << "sigmoide: " << sig << endl;
 
                 SetSigmoide(sig);
 
-                return GetSigmoide();
+                return sigmoide;
+                /**
+                if(result >= limiar){
+                    return 1;
+                } else{
+                    return 0;
+                }
+                /**/
         }
         else {
                 return this->pesoA; 
         }
 }
 
-float Neuronio::AtualizaPesosK(float pDeltaK, float pAlpha)
+double Neuronio::AtualizaPesosK(double pDeltaK, double pAlpha)
 {
         this->SetPesoA(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * pDeltaK);
-        this->SetPesoB(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * pDeltaK);
+        this->SetPesoB(this->GetPesoB() + pAlpha * this->GetB()->GetSigmoide() * pDeltaK);
+        /**
         cout << "-------------------" << endl;
         cout << "Pesos Atualizados em OUT" << endl;
         cout << "peso Ak => " << GetPesoA() << endl;
         cout << "peso Bk => " << GetPesoB() << endl;
+        /**/
 
-        this->GetA()->AtualizaPesosJ(pAlpha);
-        this->GetB()->AtualizaPesosJ(pAlpha);
+        this->GetA()->AtualizaPesosJ(pDeltaK, pAlpha);
+        this->GetB()->AtualizaPesosJ(pDeltaK, pAlpha);
 }
 
-float Neuronio::AtualizaPesosJ(float pAlpha)
+double Neuronio::AtualizaPesosJ(double pDeltaK, double pAlpha)
 {
-        this->SetPesoA(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * this->GetDeltaJ());
-        this->SetPesoB(this->GetPesoA() + pAlpha * this->GetA()->GetSigmoide() * this->GetDeltaJ());
+        double pDeltaJ = this->GetDeltaJ( sigmoide, pDeltaK );
+
+        this->SetPesoA(this->GetPesoA() + pAlpha * a->GetSigmoide() * pDeltaJ);
+        this->SetPesoB(this->GetPesoB() + pAlpha * b->GetSigmoide() * pDeltaJ);
+
+        //this->SetPesoA(this->GetPesoA() + pAlpha * sigmoide * pDeltaJ);
+        //this->SetPesoB(this->GetPesoB() + pAlpha * sigmoide * pDeltaJ);
+
+
+        /**
         cout << "-------------------" << endl;
         cout << "Pesos Atualizados em MID" << endl;
         cout << "peso Ak => " << GetPesoA() << endl;
         cout << "peso Bk => " << GetPesoB() << endl;
+        /**/
 
 }

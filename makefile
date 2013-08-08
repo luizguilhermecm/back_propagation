@@ -1,6 +1,6 @@
 FILE=main
 
 all: 
-	g++ *.cpp
+	g++ -g *.cpp
 
 

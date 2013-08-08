@@ -9,23 +9,22 @@ using namespace std;
 
 class Neuronio {
         public:
-                void SetLimiar(float);
-                float GetLimiar();
+                Neuronio();
 
-                float GetPesoA();
-                void SetPesoA(float);
+                void SetLimiar(double);
+                double GetLimiar();
 
-                float GetPesoB();
-                void SetPesoB(float);
+                double GetPesoA();
+                void SetPesoA(double);
 
-                float GetSomaPonderada();
-                void SetSomaPonderada(float);
+                double GetPesoB();
+                void SetPesoB(double);
 
-                float GetSigmoide();
-                void SetSigmoide(float);
+                double GetSomaPonderada();
+                void SetSomaPonderada(double);
 
-                float GetDeltaJ();
-                void SetDeltaJ(float, float);
+                double GetSigmoide();
+                void SetSigmoide(double);
 
                 void SetA(Neuronio*);
                 Neuronio * GetA();
@@ -33,23 +32,23 @@ class Neuronio {
                 void SetB(Neuronio*);
                 Neuronio * GetB();
 
-                float GetResult();
+                double GetResult();
 
-                float AtualizaPesosK(float, float);
-                float AtualizaPesosJ(float);
+                double AtualizaPesosK(double, double);
+                double AtualizaPesosJ(double, double);
         private:
-                float pesoA;
-                float pesoB;
+                double pesoA;
+                double pesoB;
 
-                float soma_ponderada;
-                float sigmoide;
+                double soma_ponderada;
+                double sigmoide;
 
-                float delta_j;
-
-                float limiar;
+                double limiar;
 
                 Neuronio * a;
                 Neuronio * b;
+
+                double GetDeltaJ(double, double);
 };
 
 #endif
